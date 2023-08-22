@@ -1,3 +1,10 @@
 {
-  "extends": "@tsconfig/react-native/tsconfig.json"
+  "extends": "@tsconfig/react-native/tsconfig.json",
+  "files": [
+    "navigation/MainContainer.tsx",
+    "navigation/screens/DetailsScreen.tsx",
+    "navigation/screens/HomeScreen.tsx",
+    "navigation/screens/SettingsScreen.tsx",
+    "App.tsx"  
+  ]
 }
