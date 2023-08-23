@@ -1,20 +1,15 @@
 import React, {FC} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-const styles = StyleSheet.create({
-  one: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
-export interface props {
-  navigation: string;
-}
+import {View, Text, Alert} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
-const HomeScreen: FC<props> = ({navigation}) => {
+import styles from '../styles/styles'
+
+import {HomeScreenProps} from '../types/types';
+
+const HomeScreen: FC<HomeScreenProps> = ({navigation}) => {
   return (
     <View style={styles.one}>
-      <Text>Home{navigation}</Text>
+      <Text onPress={() => navigation.navigate('Home')}>Home Screen</Text>
     </View>
   );
 };

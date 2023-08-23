@@ -17,8 +17,12 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
+
+// Containers
+import MainContainer from './navigation/MainContainer'
 
 function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -28,22 +32,13 @@ function App(): JSX.Element {
   };
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <View style={styles.red}>
-          <Button title="TeeHee Hi There" />
-        </View>
+    <NavigationContainer>
+    <SafeAreaView>
+      <ScrollView>
       </ScrollView>
-      <View style={styles.blue}>
-        <Text>test</Text>
-      </View>
-    </SafeAreaView>
+      <MainContainer/>
+    </SafeAreaView>   
+    </NavigationContainer>
   );
 }
 

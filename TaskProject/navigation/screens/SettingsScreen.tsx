@@ -1,21 +1,14 @@
 import React, {FC} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
-const styles = StyleSheet.create({
-  one: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
-export interface props {
-  navigation: string;
-}
+import styles from '../styles/styles'
 
-const SettingsScreen: FC<props> = ({navigation}) => {
+import { SettingsScreenProps } from '../types/types';
+
+const SettingsScreen: FC<SettingsScreenProps> = ({navigation}) => {
   return (
     <View style={styles.one}>
-      <Text>Home{navigation}</Text>
+      <Text onPress={ () => navigation.navigate('Settings') }>Settings</Text>
     </View>
   );
 };
