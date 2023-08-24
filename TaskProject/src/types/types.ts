@@ -11,3 +11,15 @@ export type HomeScreenProps = NativeStackScreenProps<RootStackParamList, "Home">
 export type DetailsScreenProps = NativeStackScreenProps<RootStackParamList, "Details">
 
 export type SettingsScreenProps = NativeStackScreenProps<RootStackParamList, "Settings">
+
+export type ItemData = {
+  id: string;
+  title: string;
+}
+
+export type ItemProps = {
+  item: ItemData;
+  onPress: () => void;
+  backgroundColor: string;
+  textColor: string;
+}

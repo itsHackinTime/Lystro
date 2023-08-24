@@ -22,7 +22,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 
 // Containers
-import MainContainer from './navigation/MainContainer'
+import MainContainer from './src/navigation/Tabs'
 
 function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -32,13 +32,12 @@ function App(): JSX.Element {
   };
 
   return (
+    
     <NavigationContainer>
-    <SafeAreaView>
-      <ScrollView>
-      </ScrollView>
       <MainContainer/>
-    </SafeAreaView>   
-    </NavigationContainer>
+    </NavigationContainer>  
+ 
+    
   );
 }
 
