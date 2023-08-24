@@ -44,4 +44,16 @@ export default StyleSheet.create({
       shadowRadius: 3.5,
       elevation: 5,
     },
+    input: {
+      backgroundColor: '#ffffff',
+      height: 50,
+      width: '90%',
+      borderWidth: 1,
+      padding: 10,
+      borderRadius: 8,
+    },
+    addContainer: {
+      marginTop: 10,
+      alignItems: 'center',
+    }
 })

@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import  DetailsScreen  from '../screens/DetailsScreen';
+import  AddTaskScreen  from '../screens/AddTaskScreen';
 import  HomeScreen  from '../screens/HomeScreen';
 import  SettingsScreen  from '../screens/SettingsScreen';
 import {View, Text} from 'react-native'
@@ -19,7 +19,7 @@ const Tabs: FC = () => {
       })}
     >
       <Tab.Screen name='Home' component={HomeScreen}/>
-      <Tab.Screen name='Details' component={DetailsScreen} />
+      <Tab.Screen name='Add' component={AddTaskScreen} />
       <Tab.Screen name='Settings' component={SettingsScreen} />
     </Tab.Navigator>
   )

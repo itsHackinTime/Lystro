@@ -8,7 +8,7 @@ import { SettingsScreenProps } from '../types/types';
 const SettingsScreen: FC<SettingsScreenProps> = ({navigation}) => {
   return (
     <View style={styles.one}>
-      <Text onPress={() => navigation.navigate('Details')}>Details Screen</Text>
+      <Text onPress={() => navigation.navigate('Add')}>Settings Screen</Text>
     </View>
   );
 };
