@@ -1,4 +1,7 @@
-import { StyleSheet, StatusBar } from "react-native";
+import { StyleSheet, StatusBar, Dimensions } from "react-native";
+
+const windowDimensions = Dimensions.get('window');
+const screenDimensions = Dimensions.get('screen');
 
 export default StyleSheet.create({
     one: {
@@ -51,9 +54,41 @@ export default StyleSheet.create({
       borderWidth: 1,
       padding: 10,
       borderRadius: 8,
+      marginVertical: 10
     },
     addContainer: {
       marginTop: 10,
       alignItems: 'center',
-    }
+    },
+    5: {
+      backgroundColor: '#ffb3ba'
+    },
+    4: {
+      backgroundColor: '#ffdfba'
+    },
+    3: {
+      backgroundColor: '#ffffba'
+    },
+    2: {
+      backgroundColor: '#baffc9'
+    },
+    1: {
+      backgroundColor: '#bae1ff'
+    },
+    0: {
+      backgroundColor: '#ffffff'
+    },
+    selectedItem: {
+      borderRadius: 8,
+      borderWidth: 1,
+    }, 
+    switchContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      minWidth: '90%',
+      maxWidth: '90%',
+      maxHeight: 40,
+      marginHorizontal: 10
+    },
 })

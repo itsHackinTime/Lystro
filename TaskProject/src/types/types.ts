@@ -1,5 +1,5 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
-
+import { NativeSyntheticEvent, TextInputChangeEventData} from 'react-native'
 export type RootStackParamList = {
   Home: undefined,
   Add: undefined,
@@ -24,9 +24,16 @@ export type ItemProps = {
   textColor: string;
 }
 
-export type StepProps = {
+export type StepData = {
   id: string;
-  onStepChange: () => void;
-  step: number;
-  stepState: string[]
+  text: string | undefined;
+}
+
+
+export type StepProps = {
+  step: StepData;
+  deleteStep: () => void,
+  onChangeText: (step: StepData) => void
+  stepNum: number;
+  ordered: boolean;
 }
