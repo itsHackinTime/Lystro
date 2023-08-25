@@ -13,10 +13,10 @@ const StepInput = ({
   onChangeText
 }:
   StepProps) => (
-    <View>
+    <View style={styles.switchContainer}>
       <Text>{ordered ? `Step ${stepNum + 1}:` : `Item ${stepNum + 1}:`}</Text>
       <TextInput 
-        style={[ styles.input]}
+        
         editable
         placeholder={`Step ${stepNum + 1}`}
         onChangeText={text => onChangeText({text, id: step.id})}

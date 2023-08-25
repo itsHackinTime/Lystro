@@ -6,6 +6,8 @@ import styles from '../styles/styles'
 
 import {HomeScreenProps, ItemData} from '../types/types';
 import Item from '../Components/Item'
+import { RootState } from '../app/store';
+import { useSelector } from 'react-redux';
 const DATA: ItemData[] = [
   {
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
@@ -22,11 +24,14 @@ const DATA: ItemData[] = [
 ];
 
 const HomeScreen: FC<HomeScreenProps> = ({navigation}) => {
+
+  const Tasks = useSelector((state: RootState) => state.tasksReducer.tasks)
+
   const [selectedId, setSelectedId] = useState<string>();
   const renderItem = ({item}: {item: ItemData}) => {
     const backgroundColor = item.id === selectedId ? '#6e3b6e' : '#f9c2ff';
     const color = item.id === selectedId ? 'white' : 'black';
-
+    
     return (
       <Item
         item={item}
@@ -36,6 +41,8 @@ const HomeScreen: FC<HomeScreenProps> = ({navigation}) => {
       />
     );
   }
+
+
   return (
     <View style={styles.container}>
       <FlatList

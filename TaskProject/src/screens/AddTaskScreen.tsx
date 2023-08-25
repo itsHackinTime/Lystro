@@ -1,15 +1,26 @@
 import React, {FC, useState} from 'react';
-import {View, TextInput, Button, Text, Switch, FlatList, ListRenderItem, ScrollView} from 'react-native';
+import {View, TextInput, Button, Text, Switch, FlatList, ListRenderItem, ScrollView, Modal, Pressable} from 'react-native';
 
 import StepInput from '../Components/stepsInput'
 
-import { StepData } from '../types/types';
+import { StepData, Task  } from '../types/types';
 // styling 
 import styles from '../styles/styles'
 // interfaces
 import { AddTaskScreenProps } from '../types/types';
 import DropDownPicker from 'react-native-dropdown-picker'
+import { useSelector, useDispatch } from 'react-redux';
+import  { RootState } from '../app/store'
+import { addTask } from '../app/features/taskSlice';
 const AddTaskScreen: FC<AddTaskScreenProps> = ({navigation}) => {
+  
+  const dispatchTask = useDispatch()
+  const SubmitTask = (newtask: Task) => {
+    dispatchTask(addTask(newtask));
+    // put logic here to reset state for adding task
+  }
+  
+  const [viewModal, setViewModal] = useState(false)
   const [text, onChangeText] = useState('')
   const [category, onCatChange] = useState('')
   const [open, setOpen] = useState(false);
@@ -36,7 +47,7 @@ const AddTaskScreen: FC<AddTaskScreenProps> = ({navigation}) => {
   let stepid = 1;
   const [steps, onChangeSteps] = useState<StepData[]>([])
   const addStep = () => {
-    onChangeSteps((arr) => [...arr, {id: `$[arr.length]`, text: '' }])
+    onChangeSteps((arr) => [...arr, {id: `${arr.length}`, text: '' }])
     
   }
   const changeStepText = ({id, text}: StepData) => {
@@ -111,37 +122,47 @@ const AddTaskScreen: FC<AddTaskScreenProps> = ({navigation}) => {
        placeholder='Category'
        showTickIcon={false}
       />  
-      <ScrollView>
-
+      <Modal
+        animationType='fade'
+        transparent={false}
+        visible={viewModal}
+      >
       <FlatList
         data={steps}
         renderItem={renderSteps}
         keyExtractor={item => item.id}
         extraData={ordered}
-      />  
-      </ScrollView>
-     <View>
-     
+        />  
       <View
         style={styles.switchContainer}
-      >
+        >
         <View
           style={{alignItems: 'flex-start', backgroundColor: `${ordered ? '#81b0ff' : '#ffffff'}`, borderWidth: 1, borderRadius: 8}}
-        >
+          >
           <Button
             title={ordered ? 'Add Step' : 'Add Item'}
             color={ordered ? '#ffffff' : '#81b0ff'}
             onPress={addStep}
-          />
+            />
         </View>
         <Switch 
           trackColor={{false: '#767577', true: '#81b0ff'}}
           thumbColor={ordered ? '#ffb3ba' : '#f4f3f4'}
           onValueChange={toggleSwitch}
           value={ordered}
-        />
+          />
       </View>
-     </View>
+      <Button
+      onPress={() => setViewModal(!viewModal)}
+      title='close'
+      />
+      
+      </Modal>
+       <Pressable
+       onPress={() => setViewModal(!viewModal)}
+       >
+         <Text>Add/Edit Steps</Text>
+       </Pressable>
     </View>
   );
 };

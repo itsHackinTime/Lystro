@@ -37,3 +37,14 @@ export type StepProps = {
   stepNum: number;
   ordered: boolean;
 }
+
+export type Task = {
+  id: string,
+  title: string,
+  rating: number,
+  category: string,
+  steps: string[]
+}
+export interface TasksState {
+  tasks: Task[],
+}
