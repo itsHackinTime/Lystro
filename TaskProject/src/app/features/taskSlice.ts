@@ -1,12 +1,6 @@
 import { createSlice, PayloadAction, Reducer } from "@reduxjs/toolkit"
+ import { Task } from "../../types/types";
 
-type Task = {
-  id: string,
-  title: string,
-  rating: number,
-  category: string,
-  steps: string[]
-}
 interface TasksState {
   tasks: Task[],
 }

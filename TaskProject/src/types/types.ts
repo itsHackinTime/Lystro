@@ -27,13 +27,15 @@ export type ItemProps = {
 export type StepData = {
   id: string;
   text: string | undefined;
+  step: number;
 }
 
+type RemoveStep = (step: StepData) => void;
 
 export type StepProps = {
   step: StepData;
-  deleteStep: () => void,
-  onChangeText: (step: StepData) => void
+  deleteStep: () => void;
+  onChangeText: (step: StepData) => void;
   stepNum: number;
   ordered: boolean;
 }
@@ -43,7 +45,8 @@ export type Task = {
   title: string,
   rating: number,
   category: string,
-  steps: string[]
+  steps: StepData[]
+  ordered: boolean;
 }
 export interface TasksState {
   tasks: Task[],

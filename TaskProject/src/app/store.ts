@@ -1,9 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
 import {tasksReducer } from './features/taskSlice';
-
+import { addTaskInputReducer }from './features/addScreenSlice' 
 const store = configureStore({
   reducer: {
-    tasksReducer
+    tasksReducer,
+    addTaskInputReducer
   }
 })
 

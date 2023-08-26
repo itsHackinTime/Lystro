@@ -1,5 +1,5 @@
 import React, {FC, useState} from 'react';
-import {View, TextInput, Button, Text, Switch, FlatList, ListRenderItem, ScrollView, Modal, Pressable} from 'react-native';
+import {View, TextInput, Button, Text, Switch, FlatList, ListRenderItem, ScrollView, Modal, Pressable, StyleProp, ViewStyle} from 'react-native';
 
 import StepInput from '../Components/stepsInput'
 
@@ -12,21 +12,31 @@ import DropDownPicker from 'react-native-dropdown-picker'
 import { useSelector, useDispatch } from 'react-redux';
 import  { RootState } from '../app/store'
 import { addTask } from '../app/features/taskSlice';
+import {
+  addTitle, 
+  addRating,
+  addCategory,
+  addSteps,
+  removeSteps,
+  editSteps,
+  changeOrdered
+} from '../app/features/addScreenSlice'
 const AddTaskScreen: FC<AddTaskScreenProps> = ({navigation}) => {
   
-  const dispatchTask = useDispatch()
+  const dispatch = useDispatch()
   const SubmitTask = (newtask: Task) => {
-    dispatchTask(addTask(newtask));
+    dispatch(addTask(newtask));
     // put logic here to reset state for adding task
   }
-  
+
+  const newTask = useSelector((state: RootState) => state.addTaskInputReducer)
+  console.log(newTask)
   const [viewModal, setViewModal] = useState(false)
-  const [text, onChangeText] = useState('')
-  const [category, onCatChange] = useState('')
   const [open, setOpen] = useState(false);
   const [openCat, setOpenCat] = useState(false);
-  const [value, setValue] = useState(null);
+  const [value, setValue] = useState(0);
   const [valueCat, setValueCat] = useState(null);
+ 
   const [items, setItems] = useState([{
       label: '1',
       value: 1,
@@ -47,27 +57,28 @@ const AddTaskScreen: FC<AddTaskScreenProps> = ({navigation}) => {
   let stepid = 1;
   const [steps, onChangeSteps] = useState<StepData[]>([])
   const addStep = () => {
-    onChangeSteps((arr) => [...arr, {id: `${arr.length}`, text: '' }])
-    
+    dispatch(addSteps()); 
   }
-  const changeStepText = ({id, text}: StepData) => {
-    const copy = steps.map((el) => el.id === id ? {id, text} : el)
-    onChangeSteps(() => copy )
+  const changeStepText = (step: StepData) => {
+    dispatch(editSteps(step))
+  }
+  const deleteStep = (step: StepData) => {
+    dispatch(removeSteps(step))
   }
   const renderSteps: ListRenderItem<StepData> = (step) => {
     return (
       <StepInput step={step.item}
-        deleteStep={function (): void {
-        throw new Error('Function not implemented.');
-        } } 
-        onChangeText={changeStepText}
-        stepNum={Number(step.item.id)}
-        ordered={ordered}        
+        deleteStep={() => deleteStep(step.item)} 
+        onChangeText={(text) => changeStepText(text)}
+        stepNum={step.item.step}
+        ordered={newTask.ordered}        
       />
     )
   }
   const [ordered, setOrder] = useState(false);
-  const toggleSwitch = () => setOrder((ordered) => !ordered)
+  const toggleSwitch = () => {
+    dispatch(changeOrdered)
+  }
   const [matches, searchCat] = useState([{
     label: 'cooking',
     value: 'cooking',
@@ -82,8 +93,8 @@ const AddTaskScreen: FC<AddTaskScreenProps> = ({navigation}) => {
         style={[ styles.input]}
         editable
         placeholder='Task'
-        onChangeText={(text) => onChangeText(text)}
-        value={text}
+        onChangeText={(text) => dispatch(addTitle(text))}
+        value={newTask.title}
       />
      <DropDownPicker
         open={open}
@@ -92,7 +103,7 @@ const AddTaskScreen: FC<AddTaskScreenProps> = ({navigation}) => {
         setOpen={setOpen}
         setValue={setValue}
         setItems={setItems}
-        style={[styles[value ? value : 0]]}
+        style={styles[value as keyof typeof styles] as StyleProp<ViewStyle>}
         containerStyle={[{alignItems: 'center', width: '90%', marginVertical: 10, zIndex: 6000, }] }
         listMode='SCROLLVIEW'
         placeholderStyle={{
@@ -101,8 +112,8 @@ const AddTaskScreen: FC<AddTaskScreenProps> = ({navigation}) => {
         placeholder='Priority (5 is important)'
         showTickIcon={false}
         // selectedItemContainerStyle={[styles.selectedItem, styles[value as keyof typeof styles]]}
-        listMessageContainerStyle={[styles[value ? value : 0]]}
-        selectedItemContainerStyle={[styles.selectedItem, styles[value ? value : 1]]}
+        listMessageContainerStyle={styles[value as keyof typeof styles] as StyleProp<ViewStyle>}
+        selectedItemContainerStyle={[styles.selectedItem, styles[value as keyof typeof styles] as StyleProp<ViewStyle>]}
       />
       <DropDownPicker
        searchable={true}
@@ -128,28 +139,28 @@ const AddTaskScreen: FC<AddTaskScreenProps> = ({navigation}) => {
         visible={viewModal}
       >
       <FlatList
-        data={steps}
+        data={newTask.steps}
         renderItem={renderSteps}
         keyExtractor={item => item.id}
-        extraData={ordered}
+        extraData={newTask.ordered}
         />  
       <View
         style={styles.switchContainer}
         >
         <View
-          style={{alignItems: 'flex-start', backgroundColor: `${ordered ? '#81b0ff' : '#ffffff'}`, borderWidth: 1, borderRadius: 8}}
+          style={{alignItems: 'flex-start', backgroundColor: `${newTask.ordered ? '#81b0ff' : '#ffffff'}`, borderWidth: 1, borderRadius: 8}}
           >
           <Button
-            title={ordered ? 'Add Step' : 'Add Item'}
-            color={ordered ? '#ffffff' : '#81b0ff'}
+            title={newTask.ordered ? 'Add Step' : 'Add Item'}
+            color={newTask.ordered ? '#ffffff' : '#81b0ff'}
             onPress={addStep}
             />
         </View>
         <Switch 
           trackColor={{false: '#767577', true: '#81b0ff'}}
-          thumbColor={ordered ? '#ffb3ba' : '#f4f3f4'}
+          thumbColor={newTask.ordered ? '#ffb3ba' : '#f4f3f4'}
           onValueChange={toggleSwitch}
-          value={ordered}
+          value={newTask.ordered}
           />
       </View>
       <Button
