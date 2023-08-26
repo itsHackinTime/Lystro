@@ -17,7 +17,7 @@ const StepInput = ({
       <Text>{ordered ? `Step ${stepNum}:` : `Item ${stepNum}:`}</Text>
       <TextInput 
         editable
-        placeholder={`Step ${stepNum}`}
+        placeholder={ordered ? `Step ${stepNum}:` : `Item ${stepNum}:`}
         onChangeText={text => onChangeText({text, id: step.id, step: stepNum })}
         value={step.text}
       />

@@ -77,7 +77,7 @@ const AddTaskScreen: FC<AddTaskScreenProps> = ({navigation}) => {
   }
   const [ordered, setOrder] = useState(false);
   const toggleSwitch = () => {
-    dispatch(changeOrdered)
+    dispatch(changeOrdered())
   }
   const [matches, searchCat] = useState([{
     label: 'cooking',

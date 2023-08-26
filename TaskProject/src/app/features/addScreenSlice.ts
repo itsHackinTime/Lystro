@@ -28,7 +28,7 @@ const AddTaskInput = createSlice({
       state.category = payload.payload
     },
     addSteps(state) {
-      const id = uuid(), text = '', step = state.steps.length;
+      const id = uuid(), text = '', step = state.steps.length + 1;
       state.steps.push({id, text, step})
     },
     editSteps(state, payload: PayloadAction<StepData>) {
