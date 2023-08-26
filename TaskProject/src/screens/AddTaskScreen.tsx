@@ -19,23 +19,35 @@ import {
   addSteps,
   removeSteps,
   editSteps,
-  changeOrdered
+  changeOrdered,
+  resetNewTask
 } from '../app/features/addScreenSlice'
 const AddTaskScreen: FC<AddTaskScreenProps> = ({navigation}) => {
   
   const dispatch = useDispatch()
-  const SubmitTask = (newtask: Task) => {
+  // saving submiting and reseting newTask
+  const submitTask = (newtask: Task) => {
     dispatch(addTask(newtask));
     // put logic here to reset state for adding task
   }
+  const saveTask = (newTask: Task) => {
+    dispatch(addRating(newTask.rating));
+    dispatch(addCategory(newTask.category));
+  }
+  const onCancle = () => {
+    dispatch(resetNewTask());
+    setValue(newTask.rating)
+    setValueCat(newTask.category)
+    navigation.navigate('Home');
+  }
 
   const newTask = useSelector((state: RootState) => state.addTaskInputReducer)
-  console.log(newTask)
+  
   const [viewModal, setViewModal] = useState(false)
   const [open, setOpen] = useState(false);
   const [openCat, setOpenCat] = useState(false);
-  const [value, setValue] = useState(0);
-  const [valueCat, setValueCat] = useState(null);
+  const [value, setValue] = useState(newTask.rating);
+  const [valueCat, setValueCat] = useState('');
  
   const [items, setItems] = useState([{
       label: '1',
@@ -53,9 +65,8 @@ const AddTaskScreen: FC<AddTaskScreenProps> = ({navigation}) => {
       label: '5',
       value: 5,
     }
-  ])
-  let stepid = 1;
-  const [steps, onChangeSteps] = useState<StepData[]>([])
+  ]);
+  
   const addStep = () => {
     dispatch(addSteps()); 
   }
@@ -69,17 +80,17 @@ const AddTaskScreen: FC<AddTaskScreenProps> = ({navigation}) => {
     return (
       <StepInput step={step.item}
         deleteStep={() => deleteStep(step.item)} 
-        onChangeText={(text) => changeStepText(text)}
+        onChangeText={(step) => changeStepText(step)}
         stepNum={step.item.step}
         ordered={newTask.ordered}        
       />
     )
   }
-  const [ordered, setOrder] = useState(false);
+
   const toggleSwitch = () => {
     dispatch(changeOrdered())
   }
-  const [matches, searchCat] = useState([{
+  const [Cats, setCat] = useState([{
     label: 'cooking',
     value: 'cooking',
     },{
@@ -87,6 +98,7 @@ const AddTaskScreen: FC<AddTaskScreenProps> = ({navigation}) => {
     value: 'cleaning',
     },
   ]);
+  console.log(newTask.title.length)
   return (
     <View style={styles.addContainer}>
       <TextInput
@@ -95,7 +107,7 @@ const AddTaskScreen: FC<AddTaskScreenProps> = ({navigation}) => {
         placeholder='Task'
         onChangeText={(text) => dispatch(addTitle(text))}
         value={newTask.title}
-      />
+        />
      <DropDownPicker
         open={open}
         value={value}
@@ -114,30 +126,30 @@ const AddTaskScreen: FC<AddTaskScreenProps> = ({navigation}) => {
         // selectedItemContainerStyle={[styles.selectedItem, styles[value as keyof typeof styles]]}
         listMessageContainerStyle={styles[value as keyof typeof styles] as StyleProp<ViewStyle>}
         selectedItemContainerStyle={[styles.selectedItem, styles[value as keyof typeof styles] as StyleProp<ViewStyle>]}
-      />
+        />
       <DropDownPicker
        searchable={true}
        addCustomItem={true}
        open={openCat}
        value={valueCat}
-       items={matches}
+       items={Cats}
        setOpen={setOpenCat}
        setValue={setValueCat}
-       setItems={searchCat}
+       setItems={setCat}
        style={{ justifyContent: 'center'}}
        containerStyle={{alignItems: 'center', width: '90%', marginVertical: 10}}
        listMode='SCROLLVIEW'
        placeholderStyle={{
          color: "#c8c8ca",
-       }}
-       placeholder='Category'
-       showTickIcon={false}
-      />  
+        }}
+        placeholder='Category'
+        showTickIcon={false}
+        />  
       <Modal
         animationType='fade'
         transparent={false}
         visible={viewModal}
-      >
+        >
       <FlatList
         data={newTask.steps}
         renderItem={renderSteps}
@@ -174,7 +186,13 @@ const AddTaskScreen: FC<AddTaskScreenProps> = ({navigation}) => {
        >
          <Text>Add/Edit Steps</Text>
        </Pressable>
+   <Button
+     title='cancel'
+     onPress={onCancle}   
+   />
     </View>
+
+
   );
 };
 

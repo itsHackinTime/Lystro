@@ -6,8 +6,9 @@ import styles from '../styles/styles'
 
 import {HomeScreenProps, ItemData} from '../types/types';
 import Item from '../Components/Item'
-import { RootState } from '../app/store';
-import { useSelector } from 'react-redux';
+import { RootState  } from '../app/store';
+import { useSelector, useDispatch } from 'react-redux';
+import {setSelectedId} from '../app/features/taskSlice'
 const DATA: ItemData[] = [
   {
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
@@ -24,10 +25,10 @@ const DATA: ItemData[] = [
 ];
 
 const HomeScreen: FC<HomeScreenProps> = ({navigation}) => {
+  const dispatch = useDispatch();
+  const {tasks, selectedId} = useSelector((state: RootState) => state.tasksReducer)
 
-  const Tasks = useSelector((state: RootState) => state.tasksReducer.tasks)
-
-  const [selectedId, setSelectedId] = useState<string>();
+  // const [selectedId, setSelectedId] = useState<string>('');
   const renderItem = ({item}: {item: ItemData}) => {
     const backgroundColor = item.id === selectedId ? '#6e3b6e' : '#f9c2ff';
     const color = item.id === selectedId ? 'white' : 'black';
@@ -35,9 +36,10 @@ const HomeScreen: FC<HomeScreenProps> = ({navigation}) => {
     return (
       <Item
         item={item}
-        onPress={() => setSelectedId(item.id)}
+        onPress={() => dispatch(setSelectedId(item.id))}
         backgroundColor={backgroundColor}
         textColor={color}
+
       />
     );
   }

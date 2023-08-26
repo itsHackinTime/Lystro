@@ -42,15 +42,30 @@ const AddTaskInput = createSlice({
         .filter((el) => el.id !== payload.payload.id)
         .map((el, i) => {
           if (el.step !== i + 1) el.step = i + 1;
-          return el
+          return el;
         });
     },
     changeOrdered(state) {
-      state.ordered = !state.ordered
+      state.ordered = !state.ordered;
+    },
+    resetNewTask(state) {
+      return  {
+        ...initialState,
+        id : state.id
+        }
     }
   }
 });
 
-export const { addTitle, addRating, addCategory, addSteps, editSteps, removeSteps, changeOrdered } = AddTaskInput.actions;
+export const {
+    addTitle,
+    addRating,
+    addCategory,
+    addSteps, 
+    editSteps,
+    removeSteps,
+    changeOrdered,
+    resetNewTask
+  } = AddTaskInput.actions;
 
 export const addTaskInputReducer: Reducer<Task> = AddTaskInput.reducer;

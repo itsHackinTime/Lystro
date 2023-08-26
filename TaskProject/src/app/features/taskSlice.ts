@@ -3,10 +3,13 @@ import { createSlice, PayloadAction, Reducer } from "@reduxjs/toolkit"
 
 interface TasksState {
   tasks: Task[],
+  selectedId: string,
+
 }
 
 const initialState: TasksState = {
-  tasks: []
+  tasks: [],
+  selectedId: ''
 }
 
 const tasksSlice = createSlice({
@@ -16,10 +19,13 @@ const tasksSlice = createSlice({
     addTask: (state, action: PayloadAction<Task>) => {
       state.tasks.push(action.payload);
       state.tasks.sort((a,b) => a.rating - b.rating)
+    },
+    setSelectedId(state, payload: PayloadAction<string>) {
+      state.selectedId = payload.payload
     }
   }
 });
 
-export const { addTask } = tasksSlice.actions;
+export const { addTask, setSelectedId } = tasksSlice.actions;
 
 export const tasksReducer: Reducer<TasksState> = tasksSlice.reducer;

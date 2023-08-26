@@ -1,16 +1,28 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import { NativeSyntheticEvent, TextInputChangeEventData} from 'react-native'
+
 export type RootStackParamList = {
   Home: undefined,
   Add: undefined,
   Settings: undefined,
 }
+export type TabStackParamList = {
+  Home: undefined,
+  Add: undefined,
+  Settings: undefined,
+}
+export type HomeScreenPropsTab = NativeStackScreenProps<TabStackParamList, "Home">
 
 export type HomeScreenProps = NativeStackScreenProps<RootStackParamList, "Home">
 
-export type AddTaskScreenProps = NativeStackScreenProps<RootStackParamList, "Add">
+export type AddTaskTab = NativeStackScreenProps<TabStackParamList, "Add">
 
-export type SettingsScreenProps = NativeStackScreenProps<RootStackParamList, "Settings">
+export type TabType = NativeStackScreenProps<TabStackParamList,  keyof TabStackParamList, "Tabs">
+
+export type AddTaskScreenProps  = NativeStackScreenProps<RootStackParamList, "Add">
+
+export type SettingsScreenProps = NativeStackScreenProps<TabStackParamList, "Settings"> 
+
+export type SettingsScreenPropsTab = NativeStackScreenProps<RootStackParamList, "Settings">
 
 export type ItemData = {
   id: string;
@@ -22,6 +34,7 @@ export type ItemProps = {
   onPress: () => void;
   backgroundColor: string;
   textColor: string;
+  
 }
 
 export type StepData = {
