@@ -91,4 +91,12 @@ export default StyleSheet.create({
       maxHeight: 40,
       marginHorizontal: 10
     },
+    stepList: {
+      padding: 5,
+      marginVertical: 4,
+      marginHorizontal: 4,
+      borderRadius: 8,
+      shadowOpacity: 0.2,
+      shadowOffset: {width: 5, height: 5}
+    }
 })

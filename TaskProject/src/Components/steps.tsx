@@ -16,6 +16,10 @@ type Step = {
 };
 export const Step = ({text, id, }: Step) => {
   return (
-    <Text>{text}</Text>
+    <TouchableOpacity
+    style={[styles.stepList, {backgroundColor: '#f9c2ff'}]}
+    >
+      <Text>{text}</Text>
+    </TouchableOpacity>
   )
 }
