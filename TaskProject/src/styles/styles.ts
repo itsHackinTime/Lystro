@@ -15,10 +15,13 @@ export default StyleSheet.create({
     item: {
       padding: 20,
       marginVertical: 8,
-      marginHorizontal: 16,
+      marginHorizontal: 0,
       borderRadius: 10,
       shadowOpacity: 0.2,
-      shadowOffset: {width: 5, height: 5}
+      shadowOffset: {width: 5, height: 5},
+      minWidth: '90%',
+      maxWidth: '90%'
+      
     }, 
     title: {
       fontSize: 32,

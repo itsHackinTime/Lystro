@@ -98,7 +98,7 @@ const AddTaskScreen: FC<AddTaskScreenProps> = ({navigation}) => {
     value: 'cleaning',
     },
   ]);
-  console.log(newTask.title.length)
+  
   return (
     <View style={styles.addContainer}>
       <TextInput
