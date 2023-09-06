@@ -9,8 +9,8 @@ import styles from '../styles/styles'
 import { RootStackParamList, TabType} from '../types/types';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 const Tab = createBottomTabNavigator<RootStackParamList>();
-
-
+import Icon from 'react-native-vector-icons/FontAwesome'
+import TabIcon from '../Components/TabIcon'
 const Tabs: FC = () => {
 
   
@@ -25,13 +25,39 @@ const Tabs: FC = () => {
       },
     })}
       >
-      <Tab.Screen name='Home' component={HomeScreen}/>
+      <Tab.Screen 
+        name='Home'
+        component={HomeScreen}
+        options={{
+          tabBarIcon: ({color}) => (
+            
+           <Icon name={'home'} color={color} size={50} />
+            
+          )
+        }}
+      />
       <Tab.Screen 
         name='Add'
         component={AddTaskScreen}
-        
+        options={{
+          tabBarIcon: ({color}) => (
+            
+           <Icon name={'plus'} color={color} size={50} />
+            
+          )
+        }}
         />
-      <Tab.Screen name='Settings' component={SettingsScreen} />
+      <Tab.Screen 
+        name='Settings' 
+        component={SettingsScreen}
+        options={{
+          tabBarIcon: ({color}) => (
+            
+           <Icon name={'gear'} color={color} size={50} />
+            
+          )
+        }}
+      />
     </Tab.Navigator>
     
   )

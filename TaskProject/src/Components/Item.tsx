@@ -91,7 +91,7 @@ ItemProps) => {
         if (dx > SWIPE_THESHOLD) {
           console.log('DELETE')
           Animated.timing(animation, {
-            toValue: { x: dx > 0 ? 400 : 0, y: 0 },
+            toValue: { x: dx > 0 ? 100 : 0, y: 0 },
             duration: 300,
             useNativeDriver: false,
           }).start();
@@ -111,27 +111,15 @@ ItemProps) => {
     key={item.id}
     onStartShouldSetResponder={() => true}
     onResponderGrant={onPress}
+    
      >
-    
-    
-    {/* <AnimatedTouchable  style={{flex: 1}}
-    //  onPress ={onPress} 
-     onPress={() => {
-      if (!isDragging.current) {
-        onPress();
-      }
-    }}
-     > */}
-      
       <Text style={[styles.title, {color: textColor}]}>{item.title}</Text>
-    {/* </AnimatedTouchable> */}
       <FlatList 
       data={dummySteps}
       renderItem={renderSteps}
       keyExtractor={item => item.id}
       style={item.id === selectedId ? {display : 'flex'} : {display: 'none'}}
       />
-    
   </Animated.View>
 )
 
