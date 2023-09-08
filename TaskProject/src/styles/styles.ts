@@ -28,17 +28,21 @@ export default StyleSheet.create({
     },
     container: {
       flex: 1,
-      marginTop: StatusBar.currentHeight || 0,
+      marginTop: StatusBar.currentHeight !== undefined ? StatusBar.currentHeight : 0,
     },
     navigator: {
       position: "absolute",
-      bottom: 10,
+      bottom: 30,
       left: 5,
       right: 5,
       elevation: 0,
       backgroundColor: '#ffffff',
       borderRadius: 15,
       height: 90,
+      alignItems: 'center',
+      justifyContent: 'center',
+      paddingBottom: 0, // this is for iphone 13 and 14
+      
     },
     shadow: {
       shadowColor: '#7f5DF0',
@@ -49,6 +53,17 @@ export default StyleSheet.create({
       shadowOpacity: 0.25,
       shadowRadius: 3.5,
       elevation: 5,
+    },
+    shadowAdd: {
+      shadowColor: '#7f5DF0',
+      shadowOffset: {
+        width: 0,
+        height: 7,
+      },
+      shadowOpacity: 0.35,
+      shadowRadius: 3,
+      elevation: 5,
+      borderColor: '#a1d6ff'
     },
     input: {
       backgroundColor: '#ffffff',

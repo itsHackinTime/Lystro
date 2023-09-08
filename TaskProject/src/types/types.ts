@@ -27,6 +27,10 @@ export type SettingsScreenPropsTab = NativeStackScreenProps<RootStackParamList, 
 export type ItemData = {
   id: string;
   title: string;
+  rating: number;
+  category: string;
+  steps: StepData[];
+  ordered: boolean;
 }
 
 export type ItemProps = {

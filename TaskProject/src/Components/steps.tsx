@@ -2,6 +2,7 @@ import React, {FC} from 'react';
 import {View, Text, Alert, FlatList, TouchableOpacity} from 'react-native';
 
 import styles from '../styles/styles'
+import { StepData } from '../types/types';
 const dummySteps = [
   { id: 'b4d3a9fc-248d-4b27-87f6-3363f4b8d40d', text: 'Step 1: Prepare the ingredients', selected: false },
   { id: 'd1e4f6c2-5a5a-4347-9819-18ca3260487a', text: 'Step 2: Mix everything in a bowl', selected: false },
@@ -14,7 +15,7 @@ type Step = {
   id: string;
   text: string;
 };
-export const Step = ({text, id, }: Step) => {
+export const Step = ({text, id, }: StepData) => {
   return (
     <TouchableOpacity
     style={[styles.stepList, {backgroundColor: '#f9c2ff'}]}
